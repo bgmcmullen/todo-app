@@ -9,8 +9,12 @@ function SettingsProvider(props) {
 
   const [sortBy, setSortBy] = useState('difficulty');
 
+  function toggleCompletedItems() {
+    hideCompletedItems ? setHideCompletedItems(false) : setHideCompletedItems(true);
+  }
+
   return(
-    <SettingsContext.Provider value={{itemsPerPage, setItemsPerPage, hideCompletedItems, setHideCompletedItems, sortBy, setSortBy}}>
+    <SettingsContext.Provider value={{itemsPerPage, setItemsPerPage, hideCompletedItems, toggleCompletedItems, sortBy, setSortBy}}>
       {props.children}
     </SettingsContext.Provider>
   );

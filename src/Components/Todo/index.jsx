@@ -3,6 +3,12 @@ import useForm from '../../hooks/form';
 import Header from '../Header';
 import List from '../List';
 import Footer from '../Footer';
+import './styles.scss';
+
+import '@mantine/core/styles.css'; // Import Mantine CSS
+
+import { Menu, Button} from '@mantine/core';
+
 
 import { v4 as uuid } from 'uuid';
 
@@ -20,9 +26,9 @@ const Todo = () => {
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
+    item.index = list.length;
     item.id = uuid();
     item.complete = false;
-    console.log(item);
     setList([...list, item]);
   }
 
@@ -53,19 +59,44 @@ const Todo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [list]);  
 
-console.log(settings);
+  const handleMenuItemClick = (event) => {
+    const itemText = event.currentTarget.textContent;
+    settings.setItemsPerPage(itemText);
+  };
+
+
+console.log(list);
 
   return (
     <>
 
       <Header incomplete={incomplete}/>
+      <h2>Add To Do Item</h2>
+
+        <button onClick={settings.toggleCompletedItems}>{!settings.hideCompletedItems ? 'Hide Completed Items' : 'Show Completed Items'}</button>
+        <button onClick={() => settings.setSortBy('index')}>Sort by Order Created</button>
+        <button onClick={() => settings.setSortBy('difficulty')}>Sort by Difficulty</button>
+        <Menu shadow="md" width={100}>
+      <Menu.Target>
+        <Button>Items Per Page : {settings.itemsPerPage}</Button>
+      </Menu.Target>
+
+      <Menu.Dropdown >
+        <Menu.Item onClick={handleMenuItemClick}>1</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>2</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>3</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>4</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>5</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>6</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>7</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>8</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>9</Menu.Item>
+        <Menu.Item onClick={handleMenuItemClick}>10</Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
+
 
       <form onSubmit={handleSubmit}>
-
-        <h2>Add To Do Item</h2>
-        <p>{settings.itemsPerPage}</p>
-        <p>{settings.hideCompletedItems}</p>
-        <p>{settings.sortBy}</p>
 
         <label>
           <span>To Do Item</span>
