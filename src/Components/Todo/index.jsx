@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useForm from '../../hooks/form';
+import Header from '../Header';
+import List from '../List';
+import Footer from '../Footer';
 
 import { v4 as uuid } from 'uuid';
 
+import { SettingsContext } from './../../Context/Settings/index.jsx'
+
 const Todo = () => {
+
+  const settings = useContext(SettingsContext);
 
   const [defaultValues] = useState({
     difficulty: 4,
@@ -46,15 +53,19 @@ const Todo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [list]);  
 
+console.log(settings);
+
   return (
     <>
-      <header data-testid="todo-header">
-        <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
-      </header>
+
+      <Header incomplete={incomplete}/>
 
       <form onSubmit={handleSubmit}>
 
         <h2>Add To Do Item</h2>
+        <p>{settings.itemsPerPage}</p>
+        <p>{settings.hideCompletedItems}</p>
+        <p>{settings.sortBy}</p>
 
         <label>
           <span>To Do Item</span>
@@ -76,15 +87,9 @@ const Todo = () => {
         </label>
       </form>
 
-      {list.map(item => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
-      ))}
+      <List list={list} toggleComplete={toggleComplete} />
+
+      <Footer />
 
     </>
   );
