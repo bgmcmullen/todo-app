@@ -3,7 +3,7 @@ import useForm from '../../hooks/form';
 import Header from '../Header';
 import List from '../List';
 import Footer from '../Footer';
-import './styles.scss';
+import './styles.scss'
 import Form from '../Form/index.jsx';
 import SettingsPage from '../SettingsPage/index.jsx';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';

@@ -5,7 +5,7 @@
 
 
 ## Overview
-This app allows the user to create a list of tasks and mark them as complete.
+This app allows the user to create a list of tasks and mark them as complete. Users must login and will have permissions based on their role.
 
 ## Getting Started
 Enter the name of job and the person it is assigned to. You may also toggle whether completed jobs are shown and the number of jobs per page.
@@ -20,7 +20,7 @@ Enter the name of job and the person it is assigned to. You may also toggle whet
     "uuid": "^10.0.0"
 
 ## Credit and Collaborations
-chatgpt
+chatgpt used for tests with the the prop "write jest tests for this code: "code"
 
 ## UML Diagram
 ![Diagram](UML_Map.png)

@@ -3,18 +3,14 @@ import { When } from 'react-if';
 
 import { LoginContext } from '../../Context/Auth/context.jsx';
 
-function Login(props) {
+function Login() {
   const context = useContext(LoginContext);
 
   const [state, setState] = useState({ username: '', password: '' });
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { username: '', password: '' };
-  // }
-
   const handleChange = e => {
-    setState({ [e.target.name]: e.target.value });
+
+    setState({ ...state, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {

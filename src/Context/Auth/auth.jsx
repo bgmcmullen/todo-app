@@ -7,9 +7,19 @@ function Auth(props) {
 
   const context = useContext(LoginContext);
 
-  const isLoggedIn = context.loggedIn;
-  const canDo = props.capability ? context.can(props.capability) : true;
-  const okToRender = isLoggedIn && canDo;
+  let okToRender = false;
+
+  function getOkToRender(){
+    try{
+      const isLoggedIn = context.loggedIn;
+      const canDo = props.capability ? context.can(props.capability) : true;
+      okToRender = isLoggedIn && canDo;
+    } catch {
+      okToRender = true;
+    }
+  }
+  getOkToRender();
+
 
   return (
     <When condition={okToRender}>

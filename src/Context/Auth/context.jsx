@@ -30,33 +30,18 @@ export const LoginContext = React.createContext();
 function LoginProvider(props) {
 
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [can, setCan] = useState(null);
-  // const [login, setLogin] = useState(null);
-  // const [logout, setLogout] = useState(null);
   const [user, setUser] = useState({ capabilities: [] });
   const [error, setError] = useState(null);
   const [token, setToken] = useState('')
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     loggedIn: false,
-  //     can: this.can,
-  //     login: this.login,
-  //     logout: this.logout,
-  //     user: { capabilities: [] },
-  //     error: null,
-  //   };
-  // }
 
   const can = (capability) => {
     return user?.capabilities?.includes(capability);
   }
 
   const login = async (username, password) => {
-    // let { loggedIn, token, user } = this.state;
-    let auth = testUsers[username];
 
+    let auth = testUsers[username];
 
     if (auth && auth.password === password) {
 
@@ -97,9 +82,6 @@ function LoginProvider(props) {
   };
 
   useEffect(() => {
-    // setCan(canFunction);
-    // setLogin(loginFunction);
-    // setLogout(logoutFunction);
     const qs = new URLSearchParams(window.location.search);
     const cookieToken = cookie.load('auth');
     const token = qs.get('token') || cookieToken || null;
