@@ -14,9 +14,12 @@ function SettingsProvider(props) {
   useEffect(() => {
     const restoredSettings = JSON.parse(localStorage.getItem('Context-API-settings'));
 
-    setItemsPerPage(restoredSettings.itemsPerPage);
-    setHideCompletedItems(restoredSettings.hideCompletedItems);
-    setSortBy(restoredSettings.sortBy);
+    if(restoredSettings) {
+      setItemsPerPage(restoredSettings.itemsPerPage);
+      setHideCompletedItems(restoredSettings.hideCompletedItems);
+      setSortBy(restoredSettings.sortBy);
+    }
+
 
   }, [])
 

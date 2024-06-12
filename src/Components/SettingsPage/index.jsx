@@ -13,7 +13,6 @@ const SettingsPage = () => {
   const handleNumberInputChange = value => {
     // Update the state with the new value
     settings.setItemsPerPage(value);
-    // handleChange({ target: { name: 'numberInputValue', value } });
   };
 
 
