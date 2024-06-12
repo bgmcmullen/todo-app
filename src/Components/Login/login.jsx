@@ -1,53 +1,53 @@
-import React from 'react';
-import {When} from 'react-if';
+import React, { useContext, useState } from 'react';
+import { When } from 'react-if';
 
 import { LoginContext } from '../../Context/Auth/context.jsx';
 
-class Login extends React.Component {
-  static contextType = LoginContext;
+function Login(props) {
+  const context = useContext(LoginContext);
 
-  constructor(props) {
-    super(props);
-    this.state = { username: '', password: '' };
-  }
+  const [state, setState] = useState({ username: '', password: '' });
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { username: '', password: '' };
+  // }
+
+  const handleChange = e => {
+    setState({ [e.target.name]: e.target.value });
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.context.login(this.state.username, this.state.password);
+    context.login(state.username, state.password);
   };
 
-  render() {
-    return (
-      <>
+  return (
+    <>
       <section className='login'>
-        <When condition={this.context.loggedIn}>
-          <button onClick={this.context.logout}>Log Out</button>
+        <When condition={context.loggedIn}>
+          <button onClick={context.logout}>Log Out</button>
         </When>
 
-        <When condition={!this.context.loggedIn}>
-          <h1 style={{color: 'white'}}>Please Login</h1>
-          <form onSubmit={this.handleSubmit}>
+        <When condition={!context.loggedIn}>
+          <h1 style={{ color: 'white' }}>Please Login</h1>
+          <form onSubmit={handleSubmit}>
             <input
               placeholder="UserName"
               name="username"
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
             <input
               placeholder="password"
               name="password"
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
             <button>Login</button>
           </form>
         </When>
-        </section>
-      </>
-    );
-  }
+      </section>
+    </>
+  );
 }
 
 export default Login;

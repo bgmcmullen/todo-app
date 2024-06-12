@@ -7,10 +7,8 @@ import LoginContext from './Context/Auth/context.jsx';
 import Login from './Components/Login/login.jsx'
 
 
-export default class App extends React.Component {
-  render() {
+export default function App() {
     return (
-
       <>
         <LoginContext>
           <Login />
@@ -20,5 +18,4 @@ export default class App extends React.Component {
         </LoginContext>
       </>
     );
-  }
 }
