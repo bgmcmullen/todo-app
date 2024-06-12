@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Pagination, Card, Text, Button } from '@mantine/core'; // Import Card component from Mantine
 import { SettingsContext } from './../../Context/Settings/index.jsx';
 
+import Auth from '../../Context/Auth/auth.jsx';
+
 const List = (props) => {
   const settings = useContext(SettingsContext);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,11 +29,16 @@ const List = (props) => {
     <>
       {paginatedList.map((item) => (
         <Card key={item.id} shadow="xs" padding="md" radius="md" style={{ margin: '20px' }}>
-          <Text size="lg">{item.text}{!item.complete ? <span className='pending-text'>pending</span>: null}</Text>
+          <Text size="lg">{item.text}{!item.complete ? <span className='pending-text'>pending</span> : null}</Text>
           <Text size="sm">Assigned to: {item.assignee}</Text>
           <Text size="sm">Difficulty: {item.difficulty}</Text>
-          <Button onClick={() => props.toggleComplete(item.id)} style={{background: 'blue'}}>{item.complete ? 'Mark Incomplete' : 'Mark Complete'}</Button>
-          <Button onClick={() => props.deleteItem(item.id)} style={{background: 'red'}}>Delete</Button>
+          <Auth capability="update">
+            <Button onClick={() => props.toggleComplete(item.id)} style={{ background: 'blue' }}>{item.complete ? 'Mark Incomplete' : 'Mark Complete'}</Button>
+          </Auth>
+          <Auth capability="delete">
+            <Button onClick={() => props.deleteItem(item.id)} style={{ background: 'red' }}>Delete</Button>
+          </Auth>
+
         </Card>
       ))}
       <Pagination

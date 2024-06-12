@@ -7,7 +7,10 @@ import './styles.scss';
 import Form from '../Form/index.jsx';
 import SettingsPage from '../SettingsPage/index.jsx';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import '@mantine/core/styles.css'; // Import Mantine CSS
+import '@mantine/core/styles.css';
+import Auth from '../../Context/Auth/auth.jsx';
+
+import Login from '../Login/login.jsx';
 
 import { v4 as uuid } from 'uuid';
 
@@ -60,9 +63,6 @@ const Todo = () => {
   }
 
   useEffect(() => {
-
-
-
     let incompleteCount = list.filter(item => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
@@ -84,7 +84,6 @@ const Todo = () => {
 
       <Router>
         <div>
-          {/* Create navigation links */}
           <nav>
             <ul>
               <li>
@@ -100,7 +99,10 @@ const Todo = () => {
 
           <Routes>
             <Route exact path="/" element={
-              <Form handleSubmit={handleSubmit} handleChange={handleChange} defaultValues={defaultValues} />
+              <Auth capability="create">
+                <Form handleSubmit={handleSubmit} handleChange={handleChange} defaultValues={defaultValues} />
+              </Auth>
+
             }
             />
 
