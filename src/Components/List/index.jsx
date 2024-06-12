@@ -30,7 +30,8 @@ const List = (props) => {
           <Text size="lg">{item.text}{!item.complete ? <span className='pending-text'>pending</span>: null}</Text>
           <Text size="sm">Assigned to: {item.assignee}</Text>
           <Text size="sm">Difficulty: {item.difficulty}</Text>
-          <Button onClick={() => props.toggleComplete(item.id)}>{item.complete ? 'Mark Incomplete' : 'Mark Complete'}</Button>
+          <Button onClick={() => props.toggleComplete(item.id)} style={{background: 'blue'}}>{item.complete ? 'Mark Incomplete' : 'Mark Complete'}</Button>
+          <Button onClick={() => props.deleteItem(item.id)} style={{background: 'red'}}>Delete</Button>
         </Card>
       ))}
       <Pagination

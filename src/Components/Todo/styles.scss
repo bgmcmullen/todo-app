@@ -1,3 +1,25 @@
+nav{
+  height: 40px;
+  ul{
+    display: inline;
+  }
+  li {
+    display: inline;
+
+  }
+  a{
+    font-size: 25px;
+    padding: 20px;
+    color: white;
+    margin: 0;
+    text-decoration: none;
+  }
+  padding: 0;
+  margin: 0;
+  background-color: black
+
+
+}
 
 
 Header {
@@ -48,8 +70,40 @@ span {
 
 }
 
-
-button{
-  margin: 20px;
+.settings-buttons {
+  & button {
+    margin: 20px;
+  }
 }
 
+input[type=radio] {
+  display: none;
+}
+
+
+input[type=radio]:checked + span {
+  background: red;
+}
+input[type=radio]:not(:checked):hover + span {
+  background-color: lightgray; /* Change the background color of the span when the radio input is hovered and unchecked */
+}
+
+input[type=radio] + span {
+  margin: 3px;
+  padding: 5px;
+  border: solid;
+}
+
+Footer {
+  padding: 20px;
+}
+
+form {
+ padding-left: 10px;
+ padding-right: 10px;
+}
+
+
+.m_e2f5cd4e {
+  margin-left: 10px;
+}
