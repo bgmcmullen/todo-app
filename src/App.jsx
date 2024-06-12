@@ -2,10 +2,20 @@ import React from 'react';
 
 import Todo from './Components/Todo';
 
-export default class App extends React.Component {
-  render() {
+import Auth from './Context/Auth/auth.jsx';
+import LoginContext from './Context/Auth/context.jsx';
+import Login from './Components/Login/login.jsx'
+
+
+export default function App() {
     return (
-      <Todo />
+      <>
+        <LoginContext>
+          <Login />
+          <Auth>
+            <Todo />
+          </Auth>
+        </LoginContext>
+      </>
     );
-  }
 }

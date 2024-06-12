@@ -49,7 +49,7 @@ describe('Todo Component', () => {
 
     // Navigate to the Settings page
     fireEvent.click(screen.getByText('Settings'));
-    expect(screen.getByText('Sort by Difficulty')).toBeInTheDocument(); // Adjust based on actual settings page content
+    expect(screen.getByText('Sort by Difficulty')).toBeInTheDocument(); 
   });
 
   test('adds a new item', async () => {
@@ -65,10 +65,10 @@ describe('Todo Component', () => {
 
     fireEvent.click(screen.getByText('Home'));
     // Fill out the form and submit
-    fireEvent.change(screen.getByLabelText('To Do Item'), { target: { value: 'New Task' } }); // Adjust label text
-    fireEvent.change(screen.getByLabelText('Assigned To'), { target: { value: 'John Doe' } }); // Adjust label text
-    fireEvent.change(screen.getByLabelText(/difficulty/i), { target: { value: '3' } }); // Adjust label text
-    fireEvent.click(screen.getByText('Add Item')); // Adjust button text
+    fireEvent.change(screen.getByLabelText('To Do Item'), { target: { value: 'New Task' } });
+    fireEvent.change(screen.getByLabelText('Assigned To'), { target: { value: 'John Doe' } }); 
+    fireEvent.change(screen.getByLabelText(/difficulty/i), { target: { value: '3' } }); 
+    fireEvent.click(screen.getByText('Add Item')); 
 
     // Wait for the item to be added to the list
     await waitFor(() => expect(screen.getByText('New Task')).toBeInTheDocument());
@@ -76,7 +76,7 @@ describe('Todo Component', () => {
     // Check if the item is added to localStorage
     const storedList = JSON.parse(localStorage.getItem('Context-API-list'));
     expect(storedList).toHaveLength(1);
-    expect(storedList[0].text).toBe('New Task'); // Adjust based on actual item properties
+    expect(storedList[0].text).toBe('New Task');
   });
 
   test('toggles item completion', async () => {
@@ -89,8 +89,8 @@ describe('Todo Component', () => {
     </>);
 
     // Add an item
-    fireEvent.change(screen.getByLabelText('To Do Item'), { target: { value: 'Task to Complete' } }); // Adjust label text
-    fireEvent.click(screen.getByText('Add Item')); // Adjust button text
+    fireEvent.change(screen.getByLabelText('To Do Item'), { target: { value: 'Task to Complete' } }); 
+    fireEvent.click(screen.getByText('Add Item'));
 
     // Wait for the item to be added
     await waitFor(() => expect(screen.getByText('Task to Complete')).toBeInTheDocument());
@@ -113,14 +113,14 @@ describe('Todo Component', () => {
     </>);
 
     // Add an item
-    fireEvent.change(screen.getByLabelText('To Do Item'), { target: { value: 'Task to Delete' } }); // Adjust label text
-    fireEvent.click(screen.getByText('Add Item')); // Adjust button text
+    fireEvent.change(screen.getByLabelText('To Do Item'), { target: { value: 'Task to Delete' } }); 
+    fireEvent.click(screen.getByText('Add Item')); 
 
     // Wait for the item to be added
     await waitFor(() => expect(screen.getByText('Delete')).toBeInTheDocument());
 
     // Delete the item
-    fireEvent.click(screen.getByText('Delete')); // Adjust button text based on actual button
+    fireEvent.click(screen.getByText('Delete'));
 
     // Check if the item is deleted from the list and localStorage
     await waitFor(() => expect(screen.queryByText('Task to Delete')).not.toBeInTheDocument());
