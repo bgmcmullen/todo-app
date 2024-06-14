@@ -78,7 +78,10 @@ function LoginProvider(props) {
     const userToken = cookie.load('user');
     const token = qs.get('token') || cookieToken || null;
     const user = qs.get('user') || userToken || null;
-    validateToken(user, token);
+    if(token && user){
+      validateToken(user, token);
+    }
+
 
   }, []);
 
