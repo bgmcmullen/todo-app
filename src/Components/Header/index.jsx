@@ -9,16 +9,20 @@ const Header = (props) => {
   const [name, setName] = useState(null)
 
   function getName() {
-    if (context.user.name) {
-      try {
-        setName(context.user.name);
-      } catch {
-        console.log("no name given")
-      }
+    try {
+      setName(context.user.username);
+    } catch {
+      console.log("no name given")
     }
 
+
   }
-  getName();
+
+  useEffect(() => {
+    getName();
+
+  }, [context.user.username]);
+
 
 
 
