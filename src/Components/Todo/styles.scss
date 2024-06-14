@@ -46,7 +46,7 @@ span {
   padding: 10px;
 }
 
-@keyframes glow {
+@keyframes green-glow {
   0% {
     background-color: rgb(0, 165, 0);
   }
@@ -61,8 +61,23 @@ span {
   
 }
 
+@keyframes red-glow {
+  0% {
+    background-color: rgb(255, 0, 0);
+  }
+
+  50% {
+    background-color: rgb(187, 0, 0);
+  }
+
+  100% {
+    background-color: rgb(255, 0, 0);
+  }
+  
+}
+
 .pending-text{
-  animation: glow 4s ease infinite;;
+  animation: red-glow 4s ease infinite;;
   color: white;
   border-radius: 20px;
   padding: 5px;
@@ -70,8 +85,17 @@ span {
   padding-left: 8px;
   padding-right: 8px;
   margin-left: 20px;
+}
 
-
+.complete-text{
+  animation: green-glow 4s ease infinite;;
+  color: white;
+  border-radius: 20px;
+  padding: 5px;
+  font-size: 15px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-left: 20px;
 }
 
 .settings-buttons {

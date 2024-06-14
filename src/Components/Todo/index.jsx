@@ -10,56 +10,95 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import '@mantine/core/styles.css';
 import Auth from '../../Context/Auth/auth.jsx';
 
-import Login from '../Login/login.jsx';
+import { LoginContext } from '../../Context/Auth/context.jsx';
+
+import axios from 'axios';
+
 
 import { v4 as uuid } from 'uuid';
 
+const API = import.meta.env.VITE_API;
 
 const Todo = () => {
 
   const isInitialRender = useRef(true);
 
+  const context = useContext(LoginContext);
 
   const [defaultValues] = useState({
     difficulty: 4,
-    numberInputValue: 10,
   });
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
-  useEffect(() => {
-    const restoredData = JSON.parse(localStorage.getItem('Context-API-list'));
-    if (Array.isArray(restoredData)) {
-      setList(restoredData);
+  async function fetchData(){
+    const restoredData = await axios.get(`${API}api/v2/todo/`, {
+      headers: {
+        'Authorization': `Bearer ${context.token}`
+      }
+  });
+    if (Array.isArray(restoredData.data)) {
+      setList(restoredData.data);
     }
+  }
 
+  useEffect(() => {
+    fetchData()
   }, [])
 
-  function addItem(item) {
+  async function addItem(item) {
 
-    item.index = list.length;
     item.id = uuid();
     item.complete = false;
     setList([...list, item]);
+    try {
+      await axios.post(`${API}api/v2/todo/`, item, {
+        headers: {
+          'Authorization': `Bearer ${context.token}`
+        }
+    });
+    } catch(e){
+      console.error(e);
+    }
   }
 
-  function deleteItem(id) {
+  async function deleteItem(id) {
     const items = list.filter(item => item.id !== id);
     setList(items);
+    try {
+      await axios.delete(`${API}api/v2/todo/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${context.token}`
+        }
+    });
+    } catch(e){
+      console.error(e);
+    }
   }
 
-  function toggleComplete(id) {
+
+  async function toggleComplete(id) {
+
+    let newItem = null;
 
     const items = list.map(item => {
       if (item.id === id) {
         item.complete = !item.complete;
+        newItem = item;
       }
       return item;
     });
-
+    try {
+      await axios.put(`${API}api/v2/todo/${id}`, newItem, {
+        headers: {
+          'Authorization': `Bearer ${context.token}`
+        }
+    });
+    } catch(e){
+      console.error(e);
+    }
     setList(items);
-
   }
 
   useEffect(() => {
@@ -75,7 +114,7 @@ const Todo = () => {
       isInitialRender.current = false;
       return;
     }
-    localStorage.setItem('Context-API-list', JSON.stringify(list));
+
 
   }, [list]);
 

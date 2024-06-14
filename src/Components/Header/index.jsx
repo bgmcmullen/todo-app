@@ -8,14 +8,17 @@ const Header = (props) => {
 
   const [name, setName] = useState(null)
 
-  function getName(){
-    try {
-      setName(context.user.name);
-    } catch {
-      console.log("no name given")
+  function getName() {
+    if (context.user.name) {
+      try {
+        setName(context.user.name);
+      } catch {
+        console.log("no name given")
+      }
     }
+
   }
-  // getName();
+  getName();
 
 
 
