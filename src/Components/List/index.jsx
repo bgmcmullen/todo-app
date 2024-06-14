@@ -9,7 +9,12 @@ const List = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = settings.itemsPerPage;
 
-  let sortedList = props.list.sort((a, b) => a[settings.sortBy] - b[settings.sortBy]);
+  let sortedList = [...props.list];
+
+  if(!(settings.sortBy === 'index')){
+    sortedList.sort((a, b) => a[settings.sortBy] - b[settings.sortBy]);
+  }
+
 
   // Filter sorted list based on settings
   sortedList = sortedList.filter((item) => (!(settings.hideCompletedItems && item.complete)));
@@ -29,7 +34,7 @@ const List = (props) => {
     <>
       {paginatedList.map((item) => (
         <Card key={item.id} shadow="xs" padding="md" radius="md" style={{ margin: '20px' }}>
-          <Text size="lg">{item.text}{!item.complete ? <span className='pending-text'>pending</span> : null}</Text>
+          <Text size="lg">{item.text}{!item.complete ? <span className='pending-text'>pending</span> : <span className='complete-text'>complete</span>}</Text>
           <Text size="sm">Assigned to: {item.assignee}</Text>
           <Text size="sm">Difficulty: {item.difficulty}</Text>
           <Auth capability="update">
